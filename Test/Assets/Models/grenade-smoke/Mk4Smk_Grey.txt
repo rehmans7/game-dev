@@ -1,0 +1,89 @@
+Package Information
+-------------------
+
+Title			: Mark 4 Screening Smoke Grenade (Grey)
+
+Filename/s		: Mk4Smk_Grey.max
+			  Mk4Smk_Grey.3ds
+			  /decals/*
+			  *Note: Refer to index.txt in 
+				 subdirectories for texture 
+				 information
+
+Author			: David "Vince" Newson
+
+E-mail Address		: Vince@ShiftRunstop.com
+
+Author Homepage		: http://www.ShiftRunstop.com/vince/
+
+Misc. Author Info	: Feedback is welcome to any of the following:
+			  ICQ: 44350650
+			  MSN/Email: vince_the_runt@hotmail.com
+			  AIM: Zombie000001
+
+Location		: Oxfordshire, UK
+
+Description		: Replica model of a British Army
+			  Mark 4 Screening Smoke Grenade.
+			  Believed to be accurate to 2mm.
+
+Model Information
+-----------------
+
+Revision Number		: 1 (24/07/2004)
+
+Polygon Count		: 18898
+
+Vertecie Count		: 9481
+
+UV Mapping		: Yes, standard block materials and Decal.
+
+Materials		: Yes, 
+			  1 texture map.
+
+Objects			: 8
+
+3D Editor/Version	: 3D Studio Max R5
+
+
+Model Construction
+------------------
+
+Basis			: British Army Mark 4 Screening Smoke Grenade (Grey)
+
+Build time 		: 1 week.
+
+Known Bugs		: While a great deal of the model is 1:1 
+			  with an Mk4 Smoke Grenade, the Spoon
+			  and firing cap contain several inconsistencies, 
+			  although are still majoritively accurate.
+			  The firing "pin" is technically missing and 
+			  I can find no diagrams to let me complete it, 
+			  but it should technically be invisible to most 
+			  people anyway. 
+			  The serial number for the grenade is missing from
+			  the underside.
+			  These inaccuracys are due to a lack of 
+			  concept images and size measurements.
+			  The inside of the Mk4 grenade is not modelled as 
+			  it should be (containing filters, metallic inserts,
+			  firing mechanism, and compound.
+ 			  .3ds texture mapping co-ordinates are not
+			  entirely sustained, but should be recoverable.
+			  .3ds texture names are not sustained through to
+			  the filenames in NTFS 64 character format, 
+			  as opposed to 8.3.
+
+Additional Notes	: The Smoke Grenade Trigger Hammer is off-angle at
+			  fourty-five degrees from horizontal.
+
+Copyright/Liscence	: You may freely distribute these files 
+			  with documentation and credits attached.
+			  This model may not be used for commercial 
+			  purposes without the consent of the author,
+			  however it may be used as a basis of creation 
+			  of entirely new models less than 4000 poylgons.
+			  If you choose to use this model in a project, 
+			  I would be very pleased if you could 
+			  include my name in credits, or inform me of 
+			  its application, where appropriate.
