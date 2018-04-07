@@ -15,20 +15,13 @@ public class Gun : MonoBehaviour {
     public Camera fpsCam;
 
  //   public GameObject bulletPrefab;
-   /// public float impactForce = 30f;
+    public float impactForce = 30f;
     //to limit how quickly to fire the gun
-   /// public float fireRate = 15f;
-  ///  public float nextFireTime = 0f;
+    public float fireRate = 15f;
+    public float nextFireTime = 0f;
 
  //   public Transform firingPosition;
   //  public float firePower;
-
- //   public int maxAmmo = 10;
-//    private int currentAmmo;
- //   public float reloadTime = 1f;
-
-//    private bool isReloading = false;
-
 
 
     // Use this for initialization
@@ -39,45 +32,20 @@ public class Gun : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
-    /*    if (isReloading)
-        {
-            return;
-        }*/
-
-    /*    if(currentAmmo <= 0)
-        {
-            StartCoroutine(Reload());
-
-            //stop here and do not continue to next if statement
-            return;
-        }*/
-
         //if the button is pressed and the current time is greater or equal to the next fire time, shoot
         if (Input.GetButtonDown("Fire1"))/// && Time.time >= nextFireTime)
         {
             //next fire time is the current time + the 0.25 fire rate
-         ///   nextFireTime = Time.time + 1f / fireRate;
+            nextFireTime = Time.time + 1f / fireRate;
             Shoot();
         }
     }
-
- /*   IEnumerator Reload()
-    {
-        isReloading = true;
-        Debug.Log("Reloading...");
-        //set ammo
-        yield return new WaitForSeconds(reloadTime);
-        currentAmmo = maxAmmo;
-        //once done, set to false
-        isReloading = false;
-    }*/
 
     void Shoot()
     {
         gunFlash.Play();
 
-  ///      Debug.Log("shoot...");
+        Debug.Log("shoot...");
 
       //  currentAmmo--;
 
@@ -86,8 +54,8 @@ public class Gun : MonoBehaviour {
 
         //to shoot out the ray starting at the position of the camera, to shoot in position its facing (forward), outhit- put al info in here, range - how far to hit
         //if - returns true if something is hit with the ray
-        ///     Debug.DrawLine(fpsCam.transform.position, fpsCam.transform.position + (fpsCam.transform.forward * range), Color.red, 1f);
-        ///     AmmoManager.Instance.DecreaseAmmo();
+             Debug.DrawLine(fpsCam.transform.position, fpsCam.transform.position + (fpsCam.transform.forward * range), Color.red, 1f);
+             AmmoManager.Instance.DecreaseAmmo();
         if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range))
         {
             //to check if it has been hit
@@ -103,13 +71,12 @@ public class Gun : MonoBehaviour {
             }
 
             //if the object has a rigidbody, add a force. 
- ///           if (hit.rigidbody != null)
- ///           {
+           if (hit.rigidbody != null)
+           {
             //add a force to the direction, backwards and muliple it by an impact force
-  ///          hit.rigidbody.AddForce(-hit.normal * impactForce);
-  ///          }
+             hit.rigidbody.AddForce(-hit.normal * impactForce);
+           }
 
-            
 
 
             //had the flash impact if something is hit, hit the point, take the direction and turn it into a quaternion
@@ -122,7 +89,7 @@ public class Gun : MonoBehaviour {
             //   Rigidbody rb = bullet.GetComponent<Rigidbody>();
             //   rb.AddForce(firingPosition.transform.forward * firePower, ForceMode.Impulse);
             //    GameManager.Instance.DecreaseAmmo();
-  ///      }
+          //}
     }
 
 }

@@ -1,4 +1,4 @@
-﻿/*using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -33,7 +33,7 @@ public class AmmoManager : MonoBehaviour
         score += Mathf.CeilToInt(Vector3.Distance(player.position, hoop.position));
     }*/
 
- /*   public void DecreaseAmmo()
+   public void DecreaseAmmo()
     {
         currentAmmo--;
         // no need for audio here as covered by firing sound
@@ -72,4 +72,3 @@ public class AmmoManager : MonoBehaviour
         }
     }
 }
-*/
