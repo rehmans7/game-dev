@@ -8,16 +8,19 @@ public class Gun : MonoBehaviour {
     public float damage = 10f;
     public float range = 100f;
 
-    //had a flash when something is hit variable
-    //    public GameObject hitEffect;
+
     public ParticleSystem gunFlash;
     //to shoot a ray to the camera
     public Camera fpsCam;
+    //had a flash when something is hit variable
+    public GameObject hitEffect;
 
- //   public GameObject bulletPrefab;
+    //   public GameObject bulletPrefab;
     public float impactForce = 30f;
     //to limit how quickly to fire the gun
     public float fireRate = 15f;
+
+    //next time to fire
     public float nextFireTime = 0f;
 
  //   public Transform firingPosition;
@@ -33,7 +36,7 @@ public class Gun : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         //if the button is pressed and the current time is greater or equal to the next fire time, shoot
-        if (Input.GetButtonDown("Fire1"))/// && Time.time >= nextFireTime)
+        if (Input.GetButtonDown("Fire1") && Time.time >= nextFireTime)
         {
             //next fire time is the current time + the 0.25 fire rate
             nextFireTime = Time.time + 1f / fireRate;
@@ -60,7 +63,7 @@ public class Gun : MonoBehaviour {
         {
             //to check if it has been hit
             Debug.Log(hit.transform.name);
-        }
+
             //find the enemy component on the enemy that is hit.
             Enemy enemy = hit.transform.GetComponent<Enemy>();
 
@@ -70,26 +73,29 @@ public class Gun : MonoBehaviour {
                 enemy.TakeDamage(damage);
             }
 
-            //if the object has a rigidbody, add a force. 
-           if (hit.rigidbody != null)
-           {
-            //add a force to the direction, backwards and muliple it by an impact force
-             hit.rigidbody.AddForce(-hit.normal * impactForce);
-           }
-
-
+            //if the object has a rigidbody, add a force (for when it is hit). 
+            if (hit.rigidbody != null)
+            {
+                //add a force to the direction, backwards and muliple it by an impact force
+                hit.rigidbody.AddForce(-hit.normal * impactForce);
+            }
 
             //had the flash impact if something is hit, hit the point, take the direction and turn it into a quaternion
-            //GameObject shootbullet = Instantiate(bulletPrefab, hit.point, Quaternion.LookRotation(hit.normal));
-            //destroy the hit effect after one second
-            //Destroy(shootbullet, 1f);
+            GameObject shootbullet = Instantiate(hitEffect, hit.point, Quaternion.LookRotation(hit.normal));
 
-            //    GameObject bullet = Instantiate(bulletPrefab, firingPosition.position, firingPosition.rotation);
-            //    Destroy(bullet, 1f);
-            //   Rigidbody rb = bullet.GetComponent<Rigidbody>();
-            //   rb.AddForce(firingPosition.transform.forward * firePower, ForceMode.Impulse);
-            //    GameManager.Instance.DecreaseAmmo();
-          //}
+            //destroy the hit effect after one second
+            Destroy(shootbullet, 1f);
+        }
+
+
+
+
+        //    GameObject bullet = Instantiate(bulletPrefab, firingPosition.position, firingPosition.rotation);
+        //    Destroy(bullet, 1f);
+        //   Rigidbody rb = bullet.GetComponent<Rigidbody>();
+        //   rb.AddForce(firingPosition.transform.forward * firePower, ForceMode.Impulse);
+        //    GameManager.Instance.DecreaseAmmo();
+        //}
     }
 
 }
