@@ -13,10 +13,13 @@ public class AmmoManager : MonoBehaviour
     public Transform player;
 
     public int maxAmmo = 10;
-    public int currentAmmo =10;
+    public int currentAmmo = 10;
     public float reloadTime = 1f;
 
     private bool isReloading = false;
+
+  ///  private Animator gunAnimator;
+
     void Awake()
     {
         if (Instance == null) Instance = this;
@@ -28,12 +31,18 @@ public class AmmoManager : MonoBehaviour
 
     }
 
-   /* public void IncreaseScore()
-    {
-        score += Mathf.CeilToInt(Vector3.Distance(player.position, hoop.position));
-    }*/
+///    private void OnEnable()
+///    {
+///        isReloading = false;
+///        gunAnimator.SetBool("Reloading", false);
+///    }
 
-   public void DecreaseAmmo()
+    /* public void IncreaseScore()
+     {
+         score += Mathf.CeilToInt(Vector3.Distance(player.position, hoop.position));
+     }*/
+
+    public void DecreaseAmmo()
     {
         currentAmmo--;
         // no need for audio here as covered by firing sound
@@ -45,19 +54,9 @@ public class AmmoManager : MonoBehaviour
         currentAmmo = Mathf.Min(currentAmmo, 20);
     }
 
-    IEnumerator Reload()
-    {
-       isReloading = true;
-       Debug.Log("Reloading...");
-       //set ammo
-       yield return new WaitForSeconds(reloadTime);
-       currentAmmo = maxAmmo;
-       //once done, set to false
-       isReloading = false;
-    }
-
     public void Update()
     {
+        //if it is reloading, return. do not do anything else
         if (isReloading)
         {
             return;
@@ -70,5 +69,20 @@ public class AmmoManager : MonoBehaviour
             //stop here and do not continue to next if statement
             return;
         }
+    }
+
+    IEnumerator Reload()
+    {
+        //if reloading, set to true
+        isReloading = true;
+        Debug.Log("Reloading...");
+    ///    gunAnimator.SetBool("Reloading", true);
+        //set ammo (-.25f to wait for gun to stop shooting before reloading
+        yield return new WaitForSeconds(reloadTime);/// - .25f);
+    ///    gunAnimator.SetBool("Reloading", false);
+    ///    yield return new WaitForSeconds(.25f);
+        currentAmmo = maxAmmo;
+        //once done, set to false
+        isReloading = false;
     }
 }
