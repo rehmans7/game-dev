@@ -18,7 +18,7 @@ public class AmmoManager : MonoBehaviour
 
     private bool isReloading = false;
 
-  ///  private Animator gunAnimator;
+    ///  private Animator gunAnimator;
 
     void Awake()
     {
@@ -31,11 +31,11 @@ public class AmmoManager : MonoBehaviour
 
     }
 
-///    private void OnEnable()
-///    {
-///        isReloading = false;
-///        gunAnimator.SetBool("Reloading", false);
-///    }
+    ///    private void OnEnable()
+    ///    {
+    ///        isReloading = false;
+    ///        gunAnimator.SetBool("Reloading", false);
+    ///    }
 
     /* public void IncreaseScore()
      {
@@ -76,11 +76,11 @@ public class AmmoManager : MonoBehaviour
         //if reloading, set to true
         isReloading = true;
         Debug.Log("Reloading...");
-    ///    gunAnimator.SetBool("Reloading", true);
+        ///    gunAnimator.SetBool("Reloading", true);
         //set ammo (-.25f to wait for gun to stop shooting before reloading
         yield return new WaitForSeconds(reloadTime);/// - .25f);
-    ///    gunAnimator.SetBool("Reloading", false);
-    ///    yield return new WaitForSeconds(.25f);
+                                                    ///    gunAnimator.SetBool("Reloading", false);
+                                                    ///    yield return new WaitForSeconds(.25f);
         currentAmmo = maxAmmo;
         //once done, set to false
         isReloading = false;

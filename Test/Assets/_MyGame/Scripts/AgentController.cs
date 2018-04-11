@@ -9,7 +9,8 @@ public class AgentController : MonoBehaviour
     {
         Idle = 0,
         Patrolling,
-        Chasing
+        Chasing,
+   //     Die
     }
 
     // what type is this agent?
@@ -31,12 +32,14 @@ public class AgentController : MonoBehaviour
     public float distanceToStartChasingTarget = 15f;
     public int distanceToStartAttackingTarget = 7;
     int attackHashId;
+  //  int dieHashId;
 
     void Awake()
     {
         // create hashid for the "speed" param of the Animator
         speedHashId = Animator.StringToHash("walkingSpeed");
         attackHashId = Animator.StringToHash("attack");
+   //     dieHashId = Animator.StringToHash("die");
 
         // if no waypoints have been assigned (so many students forget to do this so this will throw an informative error for you!
         if (waypoints.Length == 0)
@@ -45,8 +48,6 @@ public class AgentController : MonoBehaviour
             enabled = false;
             return;
         }
-        navMeshAgent.SetDestination(waypoints[waypointId].position);
-
     }
 
     void Chase()
@@ -91,12 +92,8 @@ public class AgentController : MonoBehaviour
         animController.SetFloat(speedHashId, 0.0f);
     }
 
-    public float heading;
-
     void Patrol()
     {
-        heading = navMeshAgent.remainingDistance;
-
         // TODO: tell the navmeshagent to resume (when idling we tell it to stop)
         navMeshAgent.Resume();
 
@@ -104,7 +101,7 @@ public class AgentController : MonoBehaviour
         animController.SetFloat(speedHashId, 1.0f);
 
         // TODO: if remainingDistance from navMeshAgent is less than distanceToStartHeadingToNextWaypoint	
-        if ( (navMeshAgent.remainingDistance > 0 && navMeshAgent.remainingDistance < distanceToStartHeadingToNextWaypoint))
+        if (navMeshAgent.remainingDistance < distanceToStartHeadingToNextWaypoint)
         {
             // TODO: then start heading toward next waypoint...
             waypointId++;
@@ -117,5 +114,11 @@ public class AgentController : MonoBehaviour
         }
     }
 
+   /* void Die()
+    {
+        //if player shoots enemy, die
 
+        animController.SetTrigger(dieHashId);
+    }
+    */
 }

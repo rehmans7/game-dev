@@ -58,7 +58,7 @@ public class Gun : MonoBehaviour {
         //to shoot out the ray starting at the position of the camera, to shoot in position its facing (forward), outhit- put al info in here, range - how far to hit
         //if - returns true if something is hit with the ray
              Debug.DrawLine(fpsCam.transform.position, fpsCam.transform.position + (fpsCam.transform.forward * range), Color.red, 1f);
-             AmmoManager.Instance.DecreaseAmmo();
+       //      AmmoManager.Instance.DecreaseAmmo();
         if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range))
         {
             //to check if it has been hit
