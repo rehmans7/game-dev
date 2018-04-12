@@ -22,16 +22,16 @@ public class AmmoPickupController : MonoBehaviour
         {
             Debug.Log("walked over the ball");
             player.Ammo.text = player.Ammo.text + 10;
-            player.ballCount = player.ballCount + 10;
+            player.ammoCount = player.ammoCount + 10;
 
             int maxAmmo = 20;
 
-            if (player.ballCount > maxAmmo)
+            if (player.ammoCount > maxAmmo)
             {
-                player.ballCount = 20;
+                player.ammoCount = 20;
             }
             reloadAmmoSound.Play();
-            player.Ammo.text = player.ballCount.ToString();
+            player.Ammo.text = player.ammoCount.ToString();
             GetComponent<Renderer>().enabled = false;
             StartCoroutine(ShowObject());
         }

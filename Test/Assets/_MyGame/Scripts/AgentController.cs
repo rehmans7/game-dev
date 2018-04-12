@@ -10,7 +10,7 @@ public class AgentController : MonoBehaviour
         Idle = 0,
         Patrolling,
         Chasing,
-   //     Die
+        Die
     }
 
     // what type is this agent?
@@ -32,14 +32,14 @@ public class AgentController : MonoBehaviour
     public float distanceToStartChasingTarget = 15f;
     public int distanceToStartAttackingTarget = 7;
     int attackHashId;
-  //  int dieHashId;
+    int dieHashId;
 
     void Awake()
     {
         // create hashid for the "speed" param of the Animator
         speedHashId = Animator.StringToHash("walkingSpeed");
         attackHashId = Animator.StringToHash("attack");
-   //     dieHashId = Animator.StringToHash("die");
+        dieHashId = Animator.StringToHash("die");
 
         // if no waypoints have been assigned (so many students forget to do this so this will throw an informative error for you!
         if (waypoints.Length == 0)
@@ -81,6 +81,7 @@ public class AgentController : MonoBehaviour
         // TODO: add an else test for if the type is Patrolling and call the Patrol method
         else if (type == AgentType.Patrolling) Patrol();
         else if (type == AgentType.Chasing) Chase();
+        else if (type == AgentType.Die) Die();
     }
 
     void Idle()
@@ -104,21 +105,22 @@ public class AgentController : MonoBehaviour
         if (navMeshAgent.remainingDistance < distanceToStartHeadingToNextWaypoint)
         {
             // TODO: then start heading toward next waypoint...
-            waypointId++;
+            waypointId = new System.Random().Next(0, waypoints.Length - 1);
 
             // TODO: loop to first waypoint if out of waypoints
-            if (waypointId >= waypoints.Length) waypointId = 0;
+         //   if (waypointId >= waypoints.Length) waypointId = 0;
+
 
             // TODO: set the NavMesh Destination property with the new waypoint position
             navMeshAgent.SetDestination(waypoints[waypointId].position);
         }
     }
 
-   /* void Die()
+    void Die()
     {
         //if player shoots enemy, die
-
         animController.SetTrigger(dieHashId);
+        //Destroy(gameObject);
     }
-    */
+    
 }

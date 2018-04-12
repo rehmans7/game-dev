@@ -1,8 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class Gun : MonoBehaviour {
+public class Gun : MonoBehaviour
+{
 
     //amount of damage from gun
     public float damage = 10f;
@@ -23,42 +25,64 @@ public class Gun : MonoBehaviour {
     //next time to fire
     public float nextFireTime = 0f;
 
- //   public Transform firingPosition;
-  //  public float firePower;
+    //   public Transform firingPosition;
+    //  public float firePower;
+
+    public float bulletSpeed = 10;
+    //  public Rigidbody bullet;
+    public float ammoCount = 10;
+    public float shootAmmo = 1;
+
+    public Text Ammo;
+    public AudioSource shootBulletSound;
+    public AudioSource emptyGunSound;
+    ///    public float enemyDamage = 25f;
 
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         //everytime an ammo is shot, take one away
-   //      currentAmmo = maxAmmo;
-	}
-	
-	// Update is called once per frame
-	void Update () {
+        //      currentAmmo = maxAmmo;
+        Ammo.text = "10";
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
         //if the button is pressed and the current time is greater or equal to the next fire time, shoot
         if (Input.GetButtonDown("Fire1") && Time.time >= nextFireTime)
         {
-            //next fire time is the current time + the 0.25 fire rate
-            nextFireTime = Time.time + 1f / fireRate;
-            Shoot();
+            if (ammoCount == 0)
+            {
+                emptyGunSound.Play();
+            }
+            else
+            {
+                //next fire time is the current time + the 0.25 fire rate
+                nextFireTime = Time.time + 1f / fireRate;
+                Shoot();
+                //    updateText();
+            }
+
         }
     }
 
     void Shoot()
     {
         gunFlash.Play();
-
+        updateText();
         Debug.Log("shoot...");
 
-      //  currentAmmo--;
+        //  currentAmmo--;
 
         //stores info about what to hit with our ray
         RaycastHit hit;
 
         //to shoot out the ray starting at the position of the camera, to shoot in position its facing (forward), outhit- put al info in here, range - how far to hit
         //if - returns true if something is hit with the ray
-             Debug.DrawLine(fpsCam.transform.position, fpsCam.transform.position + (fpsCam.transform.forward * range), Color.red, 1f);
-       //      AmmoManager.Instance.DecreaseAmmo();
+        Debug.DrawLine(fpsCam.transform.position, fpsCam.transform.position + (fpsCam.transform.forward * range), Color.red, 1f);
+        //      AmmoManager.Instance.DecreaseAmmo();
         if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range))
         {
             //to check if it has been hit
@@ -71,7 +95,10 @@ public class Gun : MonoBehaviour {
             if (enemy != null)
             {
                 enemy.TakeDamage(damage);
+                //        enemy.GetComponent<AgentController>().type = AgentController.AgentType.Die;
             }
+
+
 
             //if the object has a rigidbody, add a force (for when it is hit). 
             if (hit.rigidbody != null)
@@ -82,6 +109,20 @@ public class Gun : MonoBehaviour {
 
             //had the flash impact if something is hit, hit the point, take the direction and turn it into a quaternion
             GameObject shootbullet = Instantiate(hitEffect, hit.point, Quaternion.LookRotation(hit.normal));
+
+            ///            if(hit.transform.tag == "Enemy")
+            ///            {
+            ///                hit.transform.GetComponent<EnemyHealth>().RemoveHealth(enemyDamage);
+            ///            }
+            ///            else
+            ///            {
+            ///                GameObject shootbullet = Instantiate(hitEffect, hit.point, Quaternion.LookRotation(hit.normal));
+            ///                shootBulletSound.Play();
+            ///               Destroy(shootbullet, 1f);
+
+
+            shootBulletSound.Play();
+            //   updateText();
 
             //destroy the hit effect after one second
             Destroy(shootbullet, 1f);
@@ -96,6 +137,12 @@ public class Gun : MonoBehaviour {
         //   rb.AddForce(firingPosition.transform.forward * firePower, ForceMode.Impulse);
         //    GameManager.Instance.DecreaseAmmo();
         //}
+    }
+
+    void updateText()
+    {
+        ammoCount -= shootAmmo;
+        Ammo.text = ammoCount.ToString();
     }
 
 }
