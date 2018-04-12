@@ -113,4 +113,3 @@ public class PlayerController : MonoBehaviour
         Ammo.text = ammoCount.ToString();
     }
 }
-

@@ -33,6 +33,7 @@ public class AgentController : MonoBehaviour
     public int distanceToStartAttackingTarget = 7;
     int attackHashId;
     int dieHashId;
+    bool isDead = false;
 
     void Awake()
     {
@@ -61,37 +62,44 @@ public class AgentController : MonoBehaviour
         if (angleToTarget >= 90 && navMeshAgent.remainingDistance < distanceToStartChasingTarget && navMeshAgent.remainingDistance > navMeshAgent.stoppingDistance)
         {
             navMeshAgent.Resume();
+            
             animController.SetFloat(speedHashId, 1.0f);
         }
         else
         {
-            Idle();
+            Patrol();
         }
     }
 
     void Attack()
     {
         animController.SetTrigger(attackHashId);
+
+        if (Vector3.Distance(navMeshAgent.transform.position, target.transform.position) > this.distanceToStartAttackingTarget)
+        {
+            type = AgentType.Patrolling;
+        }
+
     }
 
     void Update()
     {
-        if (type == AgentType.Idle) Idle();
-
+        //   if (type == AgentType.Idle) Idle();
+        if (isDead) { return; }
         // TODO: add an else test for if the type is Patrolling and call the Patrol method
-        else if (type == AgentType.Patrolling) Patrol();
+         if (type == AgentType.Patrolling) Patrol();
         else if (type == AgentType.Chasing) Chase();
-        else if (type == AgentType.Die) Die();
+        else if (type == AgentType.Die) StartCoroutine(Die());
     }
 
-    void Idle()
+  /*  void Idle()
     {
         // TODO: stop navmesh to stop movement
         navMeshAgent.Stop();
 
         // set speed to 0 to stop anim
         animController.SetFloat(speedHashId, 0.0f);
-    }
+    }*/
 
     void Patrol()
     {
@@ -100,6 +108,11 @@ public class AgentController : MonoBehaviour
 
         // set Animator "speed" parameter to 1.0f to trigger walking anim
         animController.SetFloat(speedHashId, 1.0f);
+
+        if(Vector3.Distance(navMeshAgent.transform.position, target.transform.position) < this.distanceToStartAttackingTarget)
+        {
+            type = AgentType.Chasing;
+        }
 
         // TODO: if remainingDistance from navMeshAgent is less than distanceToStartHeadingToNextWaypoint	
         if (navMeshAgent.remainingDistance < distanceToStartHeadingToNextWaypoint)
@@ -116,11 +129,13 @@ public class AgentController : MonoBehaviour
         }
     }
 
-    void Die()
+    public IEnumerator Die()
     {
         //if player shoots enemy, die
+        isDead = true;
         animController.SetTrigger(dieHashId);
-        //Destroy(gameObject);
+        yield return new WaitForSeconds(5f);
+        Destroy(gameObject);
     }
     
 }

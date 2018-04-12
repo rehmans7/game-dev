@@ -8,7 +8,8 @@ public class AgentAttackingLimbController : MonoBehaviour {
 	{
 		if (other.tag == "Player") 
 		{
-			other.gameObject.GetComponent<Health> ().Hit ();
+			other.gameObject.GetComponent<PlayerStats> ().Hit (10f);
+            Debug.Log("attack");
 		}
 	}
 

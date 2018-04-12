@@ -26,7 +26,7 @@ public class EnemyController : MonoBehaviour {
 		if (Input.GetMouseButtonDown(0)) 
 		{
 			EnableEnemy();
-		}
+		} 
 	}
 
 	public void EnableEnemy()
